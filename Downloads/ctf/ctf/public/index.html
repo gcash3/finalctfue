@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Arcade CTF - Main Menu</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        .btn-level {
+            width: 300px;
+        }
+        .leaderboards {
+            max-width: 600px;
+        }
+    </style>
+</head>
+<body class="bg-dark position-relative" data-bs-theme="dark">
+    <div class="container my-4 py-5">
+        <h1 class="arcade-classic text-warning text-center">Arcade <span class="text-primary">CTF</span></h1>
+        <p class="arcade-classic text-warning text-center">Select difficulty!</p>
+        <div class="d-block my-5">
+            <a href="/easy" id="easyButton" class="btn btn-warning rounded-0 btn-level arcade-classic btn-shadow d-block mx-auto my-3">Easy</a>
+            <a href="/medium" class="btn btn-warning rounded-0 btn-level arcade-classic btn-shadow d-block mx-auto my-3">Medium</a>
+            <a href="/hard" class="btn btn-warning rounded-0 btn-level arcade-classic btn-shadow d-block mx-auto my-3">Hard</a>
+            <a href="/index" class="btn btn-warning rounded-0 btn-level arcade-classic btn-shadow d-block mx-auto my-3">Privacy Policy</a>
+        </div>
+        <div class="table-responsive w-100 border d-block mx-auto text-center leaderboards">
+            <table class="table table-dark table-striped">
+                <thead>
+                    <tr>
+                        <th class="arcade-classic text-warning">Rank</th>
+                        <th class="arcade-classic">Username</th>
+                        <th class="arcade-classic text-success">Levels Completed</th>
+                        <th class="arcade-classic text-primary">Score</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboard-list">
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div class="text-center">
+        <p class="arcade-classic">2024 UE CCSS <span class="text-success">Research and Development</span>.</p>
+        <button id="cheatButton" class="btn btn-danger rounded-0 btn-level arcade-classic btn-shadow d-block mx-auto my-3" data-bs-toggle="modal" data-bs-target="#cheatModal">Cheat?</button>
+    </div>
+<div class="modal fade" id="cheatModal" tabindex="-1" aria-labelledby="cheatModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content bg-dark">
+            <div class="modal-header">
+                <h5 class="modal-title arcade-classic text-warning" id="cheatModalLabel">Enter Cheat Code</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="cheatForm" class="submit-form">
+                    <input type="text" name="cheatCode" placeholder="Cheat Code" class="form-control bg-dark my-3" required>
+                    <p id="cheatMessage" class="arcade-classic text-danger" style="display: none;"></p>
+                    <button type="submit" class="btn btn-danger rounded-0 btn-shadow arcade-classic">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="congratsModal" tabindex="-1" aria-labelledby="congratsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="congratsModalLabel">Congratulations!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="arcade-classic">Welcome to the Hell Difficulty! 🎮😈</p>
+                <audio id="soundEffect" src="s.mp3" preload="auto" loop></audio>
+                <a href="/hell" target="_blank" class="btn btn-danger rounded-0 btn-level arcade-classic btn-shadow d-block mx-auto my-3">Hell</a>
+                <form id="leaderboardForm">
+                    <div class="mb-3">
+                        <input class="arcade-classic form-control d-block mx-auto bg-dark" type="text" name="flag" placeholder="Flag" id="flagInput" required data-bs-theme="dark" >
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" class="arcade-classic form-control d-block mx-auto bg-dark" id="usernameInput" name="username" placeholder="Username" required data-bs-theme="dark">
+                    </div>
+                    <button type="submit" class="btn btn-warning rounded-0 btn-level arcade-classic btn-shadow d-block mx-auto my-3">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="finalCongratsModal" tabindex="-1" aria-labelledby="finalCongratsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="finalCongratsModalLabel">Final Congratulations!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Congratulations! You have completed the Hell difficulty challenge.</p>
+                <p>We are deeply happy that you find this message if you have any question you may find ask for us on R&D Office</p>
+                <p>Thank you for playing!</p>
+                <p>- Nahyan & Thaddeus</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="incorrectFlagModal" tabindex="-1" aria-labelledby="incorrectFlagModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="incorrectFlagModalLabel">Incorrect Flag</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Incorrect flag. Try again ;)</p>
+                <p>Bleeeh...</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    
+$('#leaderboardForm').submit(function(event) {
+    event.preventDefault();
+    const flag = $('#flagInput').val();
+    const username = $('#usernameInput').val();
+
+    $.ajax({
+        type: 'POST',
+        url: '/hell',
+        data: { flag: flag, username: username },
+        success: function(response) {
+            if (response.success) {
+                $('#congratsModal').modal('hide');
+                
+                $('#finalCongratsModal').modal('show');
+            } else {
+                $('#incorrectFlagModal').modal('show');
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error:', error);
+            
+            alert('Failed to update leaderboard. Please try again.');
+        }
+    });
+});
+
+$('#cheatForm').submit(function(event) {
+    event.preventDefault();
+    const cheatCode = $('input[name="cheatCode"]').val();
+    $.ajax({
+        type: 'POST',
+        url: '/verify-cheat',
+        data: { cheatCode: cheatCode },
+        success: function(response) {
+            $('#cheatModal').modal('hide');
+
+if (response.success) {
+    $('#cheatMessage').hide();
+    $('#congratsModal').modal('show');
+    const audio = new Audio('s.mp3');
+    audio.loop = false;
+    audio.play();
+} else {
+                $('#cheatMessage').text(response.message).show();
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error:', error);
+            
+            $('#cheatMessage').text('Incorrect Cheat Code ;)').show();
+    const audio = new Audio('error.wav');
+    audio.play();
+        }
+    });
+});
+
+    $(document).ready(function() {
+
+function populateLeaderboard() {
+    $.get('/leaderboard', function(data) {
+        $('#leaderboard-list').empty();
+        if (Array.isArray(data)) {
+            
+            data.forEach(function(entry, index) {
+               
+                if (entry.username && entry.totalScore) {
+                    const rankSuffix = getRankSuffix(index + 1);
+                    const row = `
+                        <tr>
+                            <td class="arcade-classic text-warning">${index + 1}${rankSuffix}</td>
+                            <td class="arcade-classic">${escapeHTML(entry.username)}</td> <!-- Escape username -->
+                            <td class="arcade-classic text-success">${entry.levelsCompleted.join(', ')}</td> <!-- Display levels completed -->
+                            <td class="arcade-classic text-primary">${escapeHTML(entry.totalScore)}</td> <!-- Escape score -->
+                        </tr>`;
+                    $('#leaderboard-list').append(row);
+                }
+            });
+        }
+    });
+}
+
+
+        function getRankSuffix(rank) {
+            if (rank % 10 === 1 && rank !== 11) {
+                return "st";
+            } else if (rank % 10 === 2 && rank !== 12) {
+                return "nd";
+            } else if (rank % 10 === 3 && rank !== 13) {
+                return "rd";
+            } else {
+                return "th";
+            }
+        }
+
+        populateLeaderboard();
+
+        function escapeHTML(html) {
+            return html.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+        }
+    });
+</script>
+
+</body>
+</html>
+<!---Cheatcodemightbedecyptable?---->

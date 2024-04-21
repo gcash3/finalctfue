@@ -1,0 +1,119 @@
+
+<!----User:QWxmcmVk-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arcade CTF - Hard Round</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="password" href="password/pass.txt">
+</head>
+<body class="bg-dark" data-bs-theme="dark">
+    <div class="container">
+        <div class="container text-center text-light my-5 py-5">
+            <h1 class="arcade-classic text-primary">Hard <span class="text-warning">Level Challenge</span></h1>
+            <p class="arcade-classic text-warning">Welcome to the Hard Level Challenge!</p>
+            <p class="arcade-classic text-warning">Please <span class="text-primary">login</span> to proceed.</p>
+            <form id="loginForm" class="submit-form d-block mx-auto">
+                <input type="text" name="username" placeholder="Username" class="form-control bg-dark my-3" required data-bs-theme="dark">
+                <input type="password" name="password" placeholder="Password" class="form-control bg-dark my-3" required data-bs-theme="dark">
+                <input type="submit" value="Login" class="btn btn-warning rounded-0 btn-shadow arcade-classic my-3">
+            </form>
+            <p id="hintButton" class="arcade-classic text-muted cursor-pointer">Hint?</p>
+            <div id="hintMessage" style="display: none;">
+                <p class="arcade-classic">Did you try to visit the source code and look for a suspicious file?</p>
+            </div>
+            <div class="modal fade" id="successModal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Congratulations!</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="arcade-classic">You have successfully completed the Hard Level.</p>
+                            <form id="usernameForm" class="submit-form">
+                                <input type="text" name="username" placeholder="Enter your username" class="form-control bg-dark my-3" required data-bs-theme="dark">
+                                <input type="submit" value="Submit" class="btn btn-warning rounded-0 btn-shadow arcade-classic my-3">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="failureModal" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Incorrect Credentials</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="arcade-classic">Incorrect username or password. Please try again!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center">
+        <p class="arcade-classic">2024 UE CCSS <span class="text-success">Research and Development</span>.</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Toggle hint message visibility
+            $('#hintButton').click(function() {
+                $('#hintMessage').toggle();
+            });
+            
+            // Handle login form submission
+            $('#loginForm').submit(function(event) {
+                event.preventDefault(); // Prevent default form submission
+    
+                // Serialize form data
+                const formData = $(this).serialize(); 
+    
+                // Send AJAX POST request to /hard/login endpoint
+                $.ajax({
+                    type: 'POST',
+                    url: '/hard/login',
+                    data: formData,
+                    success: function(response) {
+                        $('#successModal').modal('show'); // Show success modal
+                    },
+                    error: function(xhr, status, error) {
+                        $('#failureModal').modal('show'); // Show failure modal
+                    }
+                });
+            });
+    
+            // Handle username form submission
+            $('#usernameForm').submit(function(event) {
+                event.preventDefault(); // Prevent default form submission
+    
+                // Serialize form data
+                const formData = $(this).serialize(); 
+    
+                // Send AJAX POST request to /update-leaderboard endpoint
+                $.ajax({
+                    type: 'POST',
+                    url: '/update-leaderboard',
+                    data: formData,
+                    success: function(response) {
+                        alert('Leaderboard updated successfully.');
+                        $('#successModal').modal('hide'); // Hide success modal
+                    },
+                    error: function(xhr, status, error) {
+                        alert('Failed to update leaderboard: ' + error); // Show error message
+                    }
+                });
+            });
+        });
+    </script>
+    <!---PDM---->
+</body>
+</html>

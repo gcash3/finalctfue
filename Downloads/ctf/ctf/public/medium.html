@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Arcade CTF - Medium Round</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link href="css/main.css" rel="stylesheet">
+    <style>
+        img {
+            max-width: 400px;
+            height: 600px;
+        }
+    </style>
+</head>
+<body data-bs-theme="dark" class="position-relative">
+
+<div class="container text-center text-light my-5 py-5">
+    <h1 class="arcade-classic text-primary">Medium <span class="text-warning">Level Challenge</span></h1>
+    <p class="arcade-classic text-warning lh-5">Welcome to the <span class="text-primary">Medium</span> Level Challenge!</p>
+    <p class="arcade-classic text-warning lh-5">Your task is to extract the flag from the following image using <span class="text-primary">steganography techniques</span></p>
+    <img src="images/pillows.jpg" class="w-100 my-3">
+    <form action="/medium" method="POST" class="d-block mx-auto my-3 submit-form">
+        <div class="my-4">
+            <div class="row gy-3">
+                <div class="col-md">
+                    <input class="arcade-classic form-control d-block mx-auto bg-dark" type="text" name="answer" placeholder="Flag" required data-bs-theme="dark">
+                </div>
+                <div class="col-md">
+                    <input class="arcade-classic form-control d-block mx-auto bg-dark" type="text" name="username" placeholder="Enter your username" required data-bs-theme="dark">
+                </div>
+            </div>
+           
+        </div>
+        
+        <input type="submit" value="Submit" class="btn btn-warning arcade-classic rounded-0 btn-shadow">
+        
+    </form>
+</div>
+<p id="hintButton" class="arcade-classic text-muted cursor-pointer">Hint?</p>
+<!-- Hint Message -->
+<div id="hintMessage" style="display: none;">
+    <p class="arcade-classic">Find a way to look for the metadata of the image ;)</p>
+</div>
+<div class="text-center">
+    <p class="arcade-classic">2024 UE CCSS <span class="text-success">Research and Development</span>.</p>
+</div>
+
+<!-- Success Modal -->
+<div class="modal" id="successModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Congratulations!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>You have successfully completed the Medium Level.</p>
+                <p>Do you want to proceed to the next level?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnNextLevel">Yes</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    let hintButton = document.getElementById('hintButton');
+    let hintMessage = document.getElementById('hintMessage');
+    let hintVisible = false;
+    let clickCount = 0;
+
+    hintButton.addEventListener('click', function() {
+        if (clickCount < 3) {
+            if (hintVisible) {
+                hintMessage.style.display = 'none'; 
+                hintVisible = false;
+            } else {
+                hintMessage.style.display = 'block';
+                hintVisible = true;
+            }
+            clickCount++;
+        } else {
+          
+            hintMessage.innerHTML = 'Fine, go to this link and upload the image <a target="_blank" href="https://exifmeta.com/">exifmeta.com</a> to look for the Flag';
+        }
+    });
+
+    $('form').submit(function(event) {
+        event.preventDefault();
+        var formData = $(this).serialize();
+
+
+        var submittedAnswer = $('input[name="answer"]').val();
+        console.log(`Submitted Answer: ${submittedAnswer}`);
+
+        $.ajax({
+            type: 'POST',
+            url: '/medium',
+            data: formData,
+            success: function(response) {
+                if (response.success) {
+                    $('#successModal').modal('show'); 
+                } else {
+                    alert('Incorrect answer. Try again!');
+                }
+            }
+        });
+    });
+
+   
+    $('#btnNextLevel').click(function() {
+        window.location.href = '/hard'; 
+    });
+</script>
+</body>
+<!---YWtp---->
+</html>

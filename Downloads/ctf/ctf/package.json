@@ -1,0 +1,28 @@
+{
+  "name": "ctf",
+  "version": "1.0.0",
+  "description": "CTF for UE Manila Made by Nahyan Jahromi & Thaddeus Toledo",
+  "main": "server.js",
+  "scripts": {
+    "test": "none",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gcash3/ctfuemanila.git"
+  },
+  "keywords": [
+    "ctfue"
+  ],
+  "author": "Nahyan Jahromi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gcash3/ctfuemanila/issues"
+  },
+  "homepage": "https://github.com/gcash3/ctfuemanila#readme",
+  "dependencies": {
+    "express-validator": "^7.0.1",
+    "helmet": "^7.1.0",
+    "ioredis": "^5.4.1"
+  }
+}

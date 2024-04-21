@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Arcade CTF - Easy Round</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link href="css/main.css" rel="stylesheet">
+</head>
+<body data-bs-theme="dark" class="position-relative">
+
+<div class="container text-center text-light my-5 py-5">
+    <h1 class="arcade-classic text-primary">Easy <span class="text-warning">Level Challenge</span></h1>
+    <p class="arcade-classic text-warning lh-5">Welcome to the <span class="text-primary">Easy</span> Level Challenge!</p>
+    <p class="arcade-classic text-warning lh-5">Your task is to decrypt the following hexadecimal string to get the flag</p>
+    <p class="courier-prime text-primary">466C61677B456173795F6C616E675F646962617D</p>
+    <form action="/easy" method="POST" class="d-block mx-auto my-3 submit-form">
+        <div class="my-4">
+            <div class="row">
+                <div class="col-md">
+                    <input class="arcade-classic form-control d-block mx-auto bg-dark" type="text" name="answer" placeholder="Flag" required data-bs-theme="dark" >
+                </div>
+                <div class="col-md">
+                    <input class="arcade-classic form-control d-block mx-auto bg-dark" type="text" name="username" placeholder="Enter your username" required data-bs-theme="dark">
+                </div>
+            </div>
+   
+        </div>
+        <input type="submit" value="Submit" class="btn btn-warning arcade-classic rounded-0 btn-shadow">
+    </form>
+</div>
+
+<!-- Add modal HTML code -->
+<div class="modal" id="successModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Congratulations!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>You have successfully completed the Easy Level.</p>
+                <p>Do you want to proceed to the next level?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnNextLevel">Yes</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="my-5 py-5 text-center">
+    <p class="arcade-classic">2024 UE CCSS <span class="text-success">Research and Development</span>.</p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    // Function to handle form submission
+    $('form').submit(function(event) {
+        event.preventDefault(); // Prevent default form submission
+        var formData = $(this).serialize(); // Serialize form data
+
+        // Log submitted answer
+        var submittedAnswer = $('input[name="answer"]').val();
+        console.log(`Submitted Answer: ${submittedAnswer}`);
+
+        // AJAX post request to submit form data
+        $.ajax({
+            type: 'POST',
+            url: '/easy',
+            data: formData,
+            success: function(response) {
+                if (response.success) {
+                    $('#successModal').modal('show'); // Show success modal if the response indicates success
+                } else {
+                    // Handle failure if needed
+                    alert('Incorrect answer. Try again!');
+                }
+            }
+        });
+    });
+
+    // Handle button click event to proceed to the next level
+    $('#btnNextLevel').click(function() {
+        window.location.href = '/medium'; // Redirect to the Medium Level page
+    });
+</script>
+<!---TWl5---->
+</body>
+</html>
