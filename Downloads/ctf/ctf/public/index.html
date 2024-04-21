@@ -118,91 +118,89 @@
     </div>
 </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    
-$('#leaderboardForm').submit(function(event) {
-    event.preventDefault();
-    const flag = $('#flagInput').val();
-    const username = $('#usernameInput').val();
+    $('#leaderboardForm').submit(function(event) {
+        event.preventDefault();
+        const flag = $('#flagInput').val();
+        const username = $('#usernameInput').val();
+       
 
-    $.ajax({
-        type: 'POST',
-        url: '/hell',
-        data: { flag: flag, username: username },
-        success: function(response) {
-            if (response.success) {
-                $('#congratsModal').modal('hide');
-                
-                $('#finalCongratsModal').modal('show');
-            } else {
+        $.ajax({
+            type: 'POST',
+            url: '/hell',
+            data: { flag: flag, username: username },
+            success: function(response) {
+                if (response.success) {
+                  
+                    $('#congratsModal').modal('hide');
+                    $('#finalCongratsModal').modal('show');
+                } else {
+                    $('#incorrectFlagModal').modal('show');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
                 $('#incorrectFlagModal').modal('show');
             }
-        },
-        error: function(xhr, status, error) {
-            console.error('Error:', error);
-            
-            alert('Failed to update leaderboard. Please try again.');
-        }
+        });
     });
-});
 
-$('#cheatForm').submit(function(event) {
-    event.preventDefault();
-    const cheatCode = $('input[name="cheatCode"]').val();
-    $.ajax({
-        type: 'POST',
-        url: '/verify-cheat',
-        data: { cheatCode: cheatCode },
-        success: function(response) {
-            $('#cheatModal').modal('hide');
+    $('#cheatForm').submit(function(event) {
+        event.preventDefault();
+        const cheatCode = $('input[name="cheatCode"]').val();
+ 
 
-if (response.success) {
-    $('#cheatMessage').hide();
-    $('#congratsModal').modal('show');
-    const audio = new Audio('s.mp3');
-    audio.loop = false;
-    audio.play();
-} else {
-                $('#cheatMessage').text(response.message).show();
+        $.ajax({
+            type: 'POST',
+            url: '/verify-cheat',
+            data: { cheatCode: cheatCode },
+            success: function(response) {
+
+                $('#cheatModal').modal('hide');
+                if (response.success) {
+                    $('#cheatMessage').hide();
+                    $('#congratsModal').modal('show');
+                    const audio = new Audio('s.mp3');
+                    audio.loop = false;
+                    audio.play();
+                } else {
+                    
+                    $('#cheatMessage').text(response.message).show();
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+                $('#cheatMessage').text('Incorrect Cheat Code ;)').show();
+                const audio = new Audio('error.wav');
+                audio.play();
             }
-        },
-        error: function(xhr, status, error) {
-            console.error('Error:', error);
-            
-            $('#cheatMessage').text('Incorrect Cheat Code ;)').show();
-    const audio = new Audio('error.wav');
-    audio.play();
-        }
+        });
     });
-});
 
     $(document).ready(function() {
 
-function populateLeaderboard() {
-    $.get('/leaderboard', function(data) {
-        $('#leaderboard-list').empty();
-        if (Array.isArray(data)) {
-            
-            data.forEach(function(entry, index) {
-               
-                if (entry.username && entry.totalScore) {
-                    const rankSuffix = getRankSuffix(index + 1);
-                    const row = `
-                        <tr>
-                            <td class="arcade-classic text-warning">${index + 1}${rankSuffix}</td>
-                            <td class="arcade-classic">${escapeHTML(entry.username)}</td> <!-- Escape username -->
-                            <td class="arcade-classic text-success">${entry.levelsCompleted.join(', ')}</td> <!-- Display levels completed -->
-                            <td class="arcade-classic text-primary">${escapeHTML(entry.totalScore)}</td> <!-- Escape score -->
-                        </tr>`;
-                    $('#leaderboard-list').append(row);
+        function populateLeaderboard() {
+            $.get('/leaderboard', function(data) {
+                $('#leaderboard-list').empty();
+                if (Array.isArray(data)) {
+                    data.forEach(function(entry, index) {
+                        if (entry.username && entry.totalScore) {
+                            const rankSuffix = getRankSuffix(index + 1);
+                            const row = `
+                                <tr>
+                                    <td class="arcade-classic text-warning">${index + 1}${rankSuffix}</td>
+                                    <td class="arcade-classic">${escapeHTML(entry.username)}</td> <!-- Escape username -->
+                                    <td class="arcade-classic text-success">${entry.levelsCompleted.join(', ')}</td> <!-- Display levels completed -->
+                                    <td class="arcade-classic text-primary">${escapeHTML(entry.totalScore)}</td> <!-- Escape score -->
+                                </tr>`;
+                            $('#leaderboard-list').append(row);
+                        }
+                    });
                 }
             });
         }
-    });
-}
-
 
         function getRankSuffix(rank) {
             if (rank % 10 === 1 && rank !== 11) {
@@ -223,6 +221,7 @@ function populateLeaderboard() {
         }
     });
 </script>
+
 
 </body>
 </html>
