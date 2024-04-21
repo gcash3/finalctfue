@@ -274,6 +274,9 @@ app.get('/hell', (req, res) => {
 
 // Hell Level route
 app.post('/hell', validateInputs, async (req, res) => {
+    // Log the data received in the request
+    console.log('Received Data:', req.body);
+    
     // Check for validation errors
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -300,12 +303,14 @@ app.post('/hell', validateInputs, async (req, res) => {
     }
 });
 
+
+
 // Handle cheat code verification
 app.post('/verify-cheat', (req, res) => {
     const { cheatCode } = req.body;
 
     // Check if the provided cheat code matches the expected code
-    if (cheatCode === 'Miyaki<3') {
+    if (cheatCode === 'Chichi<3') {
         // If the cheat code is correct, send a success response
         res.status(200).json({ success: true });
     } else {
