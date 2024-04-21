@@ -7,6 +7,15 @@
     "test": "none",
     "start": "node server.js"
   },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.19.2",
+    "http": "^0.0.1-security",
+    "ws": "^8.16.0",
+    "ioredis": "^5.4.1",
+    "helmet": "^7.1.0"
+  },
+
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gcash3/ctfuemanila.git"
@@ -20,9 +29,7 @@
     "url": "https://github.com/gcash3/ctfuemanila/issues"
   },
   "homepage": "https://github.com/gcash3/ctfuemanila#readme",
-  "dependencies": {
-    "express-validator": "^7.0.1",
-    "helmet": "^7.1.0",
-    "ioredis": "^5.4.1"
+  "engines": {
+    "node": ">=21.7.1"
   }
 }
