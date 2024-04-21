@@ -13,6 +13,7 @@
     "http": "^0.0.1-security",
     "ws": "^8.16.0",
     "ioredis": "^5.4.1",
+    "express-validator": "^7.0.1",
     "helmet": "^7.1.0"
   },
 
@@ -29,7 +30,5 @@
     "url": "https://github.com/gcash3/ctfuemanila/issues"
   },
   "homepage": "https://github.com/gcash3/ctfuemanila#readme",
-  "engines": {
-    "node": ">=21.7.1"
-  }
+
 }
