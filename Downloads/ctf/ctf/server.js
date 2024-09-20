@@ -29,10 +29,10 @@ function validateInputs(req, res, next) {
 
 // Redis Cloud connection details
 const redis = new Redis({
-    host: 'redis-15529.c294.ap-northeast-1-2.ec2.redns.redis-cloud.com',
-    port: 15529,
+    host: 'redis-13415.c251.east-us-mz.azure.redns.redis-cloud.com',
+    port: 13415,
     username: 'default',
-    password: 'Apple0508!'
+    password: 'S8qomiAkpQOhICPVlFzSNJEGt7owbR6K'
 });
 
 // Function to update leaderboard with the username, points, and difficulty
